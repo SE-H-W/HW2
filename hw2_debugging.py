@@ -1,11 +1,20 @@
 """
-This program implements the merge sort algorithm
+Module for implementing merge sort algorithm.
 """
+
 import rand
+
+
 def merge_sort(arr):
-    """
-    merge_sort function sorts input array using Merge sort algorithm
-    """
+    '''
+    Sort an array using the merge sort algorithm.
+
+    Args:
+        arr (list): Array to be sorted.
+
+    Returns:
+        list: Sorted array.
+    '''
     if len(arr) == 1:
         return arr
 
@@ -15,28 +24,41 @@ def merge_sort(arr):
 
 
 def recombine(left_arr, right_arr):
-    """
-    The recombine function is used to combine the sorted inputed arrays into a single array
-    """
+    '''
+    Recombine two sorted arrays into a single sorted array.
+
+    Args:
+        left_arr (list): Left half of the array.
+        right_arr (list): Right half of the array.
+
+    Returns:
+        list: Recombined sorted array.
+    '''
     left_index = 0
     right_index = 0
-    merge_arr = []
+    merge_arr = [None] * (len(left_arr) + len(right_arr))
+
     while left_index < len(left_arr) and right_index < len(right_arr):
         if left_arr[left_index] < right_arr[right_index]:
-            merge_arr.append(left_arr[left_index])
+            merge_arr[left_index + right_index] = left_arr[left_index]
             left_index += 1
         else:
-            merge_arr.append(right_arr[right_index])
+            merge_arr[left_index + right_index] = right_arr[right_index]
             right_index += 1
 
-    merge_arr.extend(left_arr[left_index:])
-    merge_arr.extend(right_arr[right_index:])
+    while right_index < len(right_arr):
+        merge_arr[left_index + right_index] = right_arr[right_index]
+        right_index += 1
+
+    while left_index < len(left_arr):
+        merge_arr[left_index + right_index] = left_arr[left_index]
+        left_index += 1
 
     return merge_arr
 
 
-x = rand.random_array([None] * 20)
-print(x)
-arr_out = merge_sort(x)
+array = rand.random_array([None] * 20)
+
+arr_out = merge_sort(array)
 
 print(arr_out)
