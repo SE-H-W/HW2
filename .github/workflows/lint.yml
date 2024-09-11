@@ -1,4 +1,4 @@
-name: HW2-test
+name: Lint Workflow
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install pylint autopep8 radon pytest
+        pip install pylint autopep8
 
     - name: Run AutoPEP8
       run: |
@@ -31,26 +31,3 @@ jobs:
 
     - name: Run Pylint
       run: pylint *.py
-
-    - name: Run Radon
-      run: radon cc *.py --total-average
-
-  test:
-    name: Test with Pytest
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.12"
-
-    - name: Install dependencies
-      run: |
-        pip install pytest
-
-    - name: Run Pytest
-      run: pytest
